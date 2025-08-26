@@ -8,11 +8,18 @@ class Product(models.Model):
     stock = models.PositiveIntegerField()
     is_available = models.BooleanField(default=True)
 
-# class Order(models.Model):
-#     product = models.ForeignKey(to=Product, on_delete=models.SET_NULL, null=True)
-#     address = models.CharField(max_length=250)
-#     created_at = models.DateTimeField(auto_now_add=True)
+class Order(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    totalprice = models.FloatField()
+    customer_name = models.CharField(max_length=30)
+    customer_phone = models.CharField(max_length=20)
+    city = models.CharField(max_length=250, blank=True, null=True)
+    streat = models.CharField(max_length=250, blank=True, null=True)
+    house = models.PositiveIntegerField(blank=True, null=True)
+    entrance = models.PositiveIntegerField(blank=True, null=True)
+    apartment = models.PositiveIntegerField(blank=True, null=True)
 
-
-
-
+class OrderItem(models.Model):
+    product = models.ForeignKey(to=Product, on_delete=models.SET_NULL, null=True)
+    order = models.ForeignKey(to=Order, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField()

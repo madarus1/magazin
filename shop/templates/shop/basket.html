@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}католог{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="basket">
+        <div>
+            <form action="{%url 'basket'%}" method="post" class="mt-5">
+                {% csrf_token %}
+            {% for item in cart %}
+                <div class="d-flex align-items-center gap-3">
+                    <img width="75px" src="{{item.product.img.url}}" alt="">
+                    {% if item.quantity != item.product.stock %}
+                    <a class="text-decoration-none m-0 p-0" href="{% url 'add_to_cart' product_id=item.product.id %}">+1</a>
+                    {% endif %}
+                    <input name="count" type="number" value="{{item.quantity}}">
+                    <a class="text-decoration-none m-0 p-0" href="{% url 'reduce_from_cart' product_id=item.product.id%}">-1</a>
+                    <p class="m-0 p-0">{{item.total_price}}$</p>
+                    {% comment %} <p>{{item.product.name}} - {{item.quantity}}*{{item.product.price}} = {{item.total_price}}$</p> {% endcomment %}
+                </div>
+{% endfor %}
+            <button type="submit" name="submit_product">
+                Потвердить выбранные товары
+            </button>
+            </form>
+        </div>
+        <div class="stick">
+        {% comment %} палка {% endcomment %}
+        </div>
+        <div>
+            <p>Общая стоимость{{total}}$</p>
+        </div>
+    </div>
+    <div>
+        <form action="{%url 'basket'%}" class="delivery" method="post">
+            {% csrf_token %}
+            <input type="text" placeholder="Имя" name="customer_name">
+            <input type="tel" placeholder="Телефон" name="cutomer_phone">
+            <textarea name="customer_wishes" id="" placeholder="Пожелания"></textarea>
+            <div class="d-flex gap-3 align-items-center">
+                <label for="customer_delivery">Желаете оформить доставку?</label>
+                <input type="checkbox" name="customer_delivery" id="checkbox_delivery">
+            </div>
+            <div id="delivery_box" class="flex-column gap-2">
+                <input name="city" type="text" placeholder="Город">
+                <input name="street" type="text" placeholder="Улица">
+                <input name="house" type="text" placeholder="Дом">
+                <input name="entrance" type="text" placeholder="Подъезд">
+                <input name="apartment" type="text" placeholder="Квартира">
+            </div>
+            <button type="submit" name="submit_order">
+                Сделать заказ)
+            </button>
+
+        </form>
+    </div>
+</div>
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+

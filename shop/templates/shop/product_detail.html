@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}католог{% endblock %}
+{% block content %}
+    <div class="product_container">
+        <div class="product_leftside">
+            <h1>Детали о продукте: {{product.name}}</h1>
+            <img src="{{product.img.url}}" class="product_img" alt="...">
+        </div>
+        <div class="product_rightside" >
+            <h2>Описание: {{product.desc}}</h2>
+            <h2>В наличии: {{product.stock}}</h2>
+            <h2>Стоимость {{product.price}}$</h2>
+            <a class="product_detail_button" href="{% url 'add_to_cart' product_id=product.id %}">Добавить в корзину</a>
+            {% if user.is_authenticated %}
+                {% if product in user.favorite.all %}
+                    <a class="product_detail_button remove_favorite" href="{% url 'favorite_products' product_id=product.id %}">Удалить из желаемого</a>
+                {% else %}
+                    <a class="product_detail_button add_favorite" href="{% url 'favorite_products' product_id=product.id %}">Добавить в желаемое</a>
+                {% endif %}
+            {% else %}
+                <a class="product_detail_button" href="log_in">Войдите, чтобы добавить в желаемое</a>
+            {% endif %}
+            
+        </div>
+    </div>
+    <p>
+        {{request.GET}}
+    </p>
+
+
+
+
+
+
+
+    {% endblock %}

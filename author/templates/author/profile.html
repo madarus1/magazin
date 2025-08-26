@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block title %}католог{% endblock %}
+{% block content %}
+
+
+<img class="avatar" src="{{user.avatar.url}}" alt="">
+<h1 class="username">{{user.username}}</h1>
+<ul class="d-flex align-items-center justify-content-center gap-3">
+    {% for i in user.favorite.all %}
+    <div
+        {% if i in user.favorite.all %}
+            class="card border border-success"
+        {%else%}
+            class="card"
+        {%endif%}
+        style="width: 18rem;">
+            <a class="text-decoration-none text-dark" href="{% url 'barashek' product_id=i.id %}">
+                <img src="{{i.img.url}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{i.name}}</h5>
+                    <p class="card-text dex">{{i.desc}}</p>
+                    <p class="card-text">{{i.price}}$</p>
+                    <p class="card-text">{{i.stock}}</p>
+                    
+                        
+                </div>
+            </a>
+        </div>
+    {% endfor %}
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
